@@ -1,67 +1,76 @@
-// Assignment code here
+// Array's for passwords
+let lowercaseArray = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+let uppercaseArray = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+let numbersArray = [0,1,2,3,4,5,6,7,8,9]
+let specialArray = ["~","!","@","#","$","%","&","*"]
 
-//DOM ELEMENTS
-const resultEL = document.getElementById('result');
-const lengthEL = document.getElementById('length');
-const uppercaseEL = document.getElementById('uppercase');
-const lowercaseEL = document.getElementById('lowercase');
-const numbersEL = document.getElementById('numbers');
-const symbolsEL = document.getElementById('symbols');
-const generateBtn = document.getElementById('generate');
+function generatePassword() {
 
-const lengthPrompt = prompt('How long would you like your password?')
-const uppercasePrompt = prompt('Would you like to include uppercase letters? Yes or No')
-const lowercasePrompt = prompt('Would you like to include lowercase letters? Yes or No')
-const numbersPrompt = prompt('Would you like to inclued numbers? Yes or No')
-const symbolsPrompt = prompt('Would you like to inclued symbols? Yes or No')
+// Passowrd Prompts
+let lengthAlert = prompt('How long do you want your password to be? (Please select a number 8-128)')
+let lowercaseAlert = prompt('Include lowercase letters? Y or N')
+let uppercaseAlert = prompt('Include uppercase letters? Y or N')
+let numbersAlert = prompt('Include numbers? Yes or no')
+let specialAlert = prompt('Include special characters? Y or N')
+
+// Alert to enforce one criteria must be selected
+if (lowercaseAlert === null && uppercaseAlert === null && numbersAlert === null && specialAlert === null){
+  alert('At least one criteria must be selected')
+}
+
+// Developing password
+lengthAlert = parseInt(lengthAlert)
+lowercaseAlert = lowercaseAlert.toUpperCase();
+uppercaseAlert = uppercaseAlert.toUpperCase();
+numbersAlert = numbersAlert.toUpperCase();
+specialAlert = specialAlert.toUpperCase();
+
+  if (lengthAlert == null || isNaN(lengthAlert) || lengthAlert < 8 || lengthAlert > 128 ) {
+    alert('Your first input was not a valid number, please try again and select a number 8-128');
+    return;
+  }
+
+  if (!lowercaseAlert && !uppercaseAlert && !numbersAlert && !specialAlert){
+    alert('At least one criteria must be selected, please input "yes" for at least one criteria')
+  }
+  
+  let userChoices = [];
+  if (lowercaseAlert === 'YES') {
+    userChoices = userChoices.concat(lowercaseArray)
+    console.log(userChoices)
+  }
+  if (uppercaseAlert === 'YES') {
+    userChoices = userChoices.concat(uppercaseArray)
+    console.log(userChoices)
+  }
+  if (numbersAlert === 'YES') {
+    userChoices = userChoices.concat(numbersArray)
+    console.log(userChoices)
+  }
+  if (specialAlert === 'YES') {
+    userChoices = userChoices.concat(specialArray)
+    console.log(userChoices)
+  }  
+  
+ for (let i = 0; i < lengthAlert; i++){
+  let shuffled = [...userChoices].sort(() => .5 - Math.random())
+  let password = shuffled.slice(0, lengthAlert).join("")
+ }
+ return password
+} 
+
+
+let generateBtn = document.querySelector("#generate");
+
 
 function writePassword() {
-  generateBtn.addEventListener('click');
+
+  let password = generatePassword();
+  let passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
+
 }
-generateBtn.addEventListener("click", writePassword);
-console.log('you clicked the btn');
-
-const generateRandom = {
-  lower: getRandomUpper,
-  upper: getRandomLower,
-  number: getRandomNumber,
-  symbol: getRandomSymbol
-};
-
-// GENERATE FUNCTIONS
-
-function getRandomUpper(){
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 65)
-};
-
-function getRandomLower(){
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 97)
-};
-
-function getRandomNumber(){
-  return String.fromCharCode(Math.floor(Math.random() * 10) + 48)
-};
-
-function getRandomSymbol(){
-  const symbols = '!@#$%^&*()_+{}|:<>?~`-=[]\;,./';
-  return String.fromCharCode[Math.floor(Math.random() * symbols.length)]
-};
 
 
-
-
-
-
-// Get references to the #generate element
-// var generateBtn = document.querySelector("#generate");
-// Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-
-//   passwordText.value = password;
-
-// }
-
-// // Add event listener to generate button
-//  
+generateBtn.addEventListener("click", writePassword)
