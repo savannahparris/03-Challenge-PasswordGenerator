@@ -10,7 +10,7 @@ function generatePassword() {
 let lengthAlert = prompt('How long do you want your password to be? (Please select a number 8-128)')
 let lowercaseAlert = prompt('Include lowercase letters? Y or N')
 let uppercaseAlert = prompt('Include uppercase letters? Y or N')
-let numbersAlert = prompt('Include numbers? Yes or no')
+let numbersAlert = prompt('Include numbers? Y or N')
 let specialAlert = prompt('Include special characters? Y or N')
 
 // Alert to enforce one criteria must be selected
@@ -35,19 +35,19 @@ specialAlert = specialAlert.toUpperCase();
   }
   
   let userChoices = [];
-  if (lowercaseAlert === 'YES') {
+  if (lowercaseAlert === 'Y') {
     userChoices = userChoices.concat(lowercaseArray)
     console.log(userChoices)
   }
-  if (uppercaseAlert === 'YES') {
+  if (uppercaseAlert === 'Y') {
     userChoices = userChoices.concat(uppercaseArray)
     console.log(userChoices)
   }
-  if (numbersAlert === 'YES') {
+  if (numbersAlert === 'Y') {
     userChoices = userChoices.concat(numbersArray)
     console.log(userChoices)
   }
-  if (specialAlert === 'YES') {
+  if (specialAlert === 'Y') {
     userChoices = userChoices.concat(specialArray)
     console.log(userChoices)
   }  
